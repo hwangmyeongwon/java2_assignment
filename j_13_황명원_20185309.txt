@@ -1,0 +1,53 @@
+ㅡ문제ㅡ
+14. 아래의 실행화면을 참고하여 13번에서 작성한 학생(Student 객체)들의 정보를 ArrayList에 저장하고 검색할 수 있는 Test 클래스를 작성하세요.
+
+ㅡ해답 소스ㅡ
+public class test14 {
+    public static void main(String[] args) {
+
+        System.out.println("학번:20185309 이름:황명원");
+
+        List<Student> alist=new ArrayList<Student>();//학생정보 저장하는 alist 생성
+        Student[] st=new Student[5];
+        String find_name;
+        Scanner sc = new Scanner(System.in);
+        st[0]=new Student("name0","phone0");
+        st[1]=new Student("name1","phone1");
+        st[2]=new Student("name2","phone2");
+        st[3]=new Student("name3","phone3");
+        st[4]=new Student("name4","phone4");
+
+        for(int i=0 ; i<5 ; i++){ //alist에 학생정보 저장
+            alist.add(st[i]);
+        }
+        for(Student s: alist){//alist의 모든 요소를 출력
+            System.out.println(s);
+        }
+
+        System.out.print("이름을 입력하시면 전화번호를 드립니다 : ");
+        find_name=sc.nextLine();
+
+        for(int i=0 ; i<5 ; i++){ //이름을 입력받아 전화번호 검색후 내용출력
+            if(find_name.equals(alist.get(i).getName())) {
+                System.out.println(find_name + "의 전화번호 = " + alist.get(i).getPhone());
+                break;
+            }
+        }
+
+        System.out.print("이름을 입력하시면 정보를 삭제합니다 : ");
+        find_name=sc.nextLine();
+
+        for(int i=0 ; i<5 ; i++){ //이름을 입력받아 전화번호 검색후 해당번호 삭제
+            if(find_name.equals(alist.get(i).getName())) {
+                alist.remove(st[i]);
+                break;
+            }
+        }
+        for(Student s: alist){//alist의 모든 요소를 출력
+            System.out.println(s);
+        }
+
+    }
+
+
+}

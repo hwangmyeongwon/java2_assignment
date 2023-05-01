@@ -1,0 +1,148 @@
+응용 프로그래밍 11번
+
+11. 다음의 내용을 클래스(CellPhone)로 작성하시오.
+- 핸드폰에는 폰 번호와 현재 전원의 상태를 저장하고 있다.
+- 폰이 처음 생성될 때는 폰 번호와 현재의 전원 상태를 on상태(true)로 한다.
+- CellPhone 객체가 생성될 때 마다 현재 생성된 CellPhone의 전체 수량을 저장(count)해야 한
+다.
+- 기능으로는 전원 버튼을 누를 때 마다 현재의 전원상태를 토글(on(true)/off(false)) 한다.
+- 현재 객체 상태를 문자열로 리턴한다.
+- telNum, power, getCount(), toString(), powerToggle(), getCount()
+
+>>해답소스
+
+class CellPhone{
+    static int count=0; //객체수
+    String telNum; //전화번호
+    String power="off"; //(on/off)를 (true/false)로 나타내기
+
+    //생성자
+    CellPhone(String ph){
+        this.telNum=ph;
+        getCount(); //문제에 getCount() 두번써져있어서 이렇게 썼습니다
+
+
+    }
+    // 객체 수 전달
+    int getCount(){
+        return count++;
+    }
+    //메소드
+    boolean powerToggle(){
+        if(power=="off"){//powerToggle() 호출시 power를 변경하게 조건 달기
+            power="on";
+            return true;
+        }
+        else
+            power="off";
+            return false;
+    }
+    //출력
+    public String toString(){
+        return "번호는 : "+telNum+" 전원상태는 : "+power+" 저장된 번호수는 : "+count;
+    }
+
+
+}
+
+응용프로그래밍 12번
+
+
+12. 위 CellPhone 클래스를 테스트하는 클래스(CellPhoneTest)를 작성하시오.
+
+>>해답소스
+
+public class CellPhoneTest {
+    public static void main(String[] args) {
+        CellPhone cp1=new CellPhone("01030223237"); //전화번호 입력해서 객체 생성
+        cp1.powerToggle(); //전원 끄고켜기
+        System.out.println(cp1.toString()); //cp1객체에 저장되있는 정보 출력
+
+        CellPhone cp2=new CellPhone("01098773237");//전화번호 입력해서 객체 생성
+        cp2.powerToggle();//전원 끄고 켜기
+        cp2.powerToggle();//전원 끄고 켜기
+        System.out.println(cp2.toString()); //cp2객체에 저장되있는 정보 출력
+    }
+
+}
+
+응용프로그래밍 13번
+
+13. CellPhone을 배열을 만들어 다섯 개를 저장 한 후 사용자가 묻는 번호의 전원상태를 알려주
+는 내용을 CellPhoneTest에 추가 하시오.
+
+>>해답소스
+
+import java.util.Scanner;
+
+class CellPhone{
+    static int count=0; //객체수
+    String telNum; //전화번호
+    String power="off"; //(on/off)를 (true/false)로 나타내기
+
+    //생성자
+    CellPhone(String ph){
+        this.telNum=ph;
+        getCount(); //문제에 getCount() 두번써져있어서 이렇게 썼습니다
+
+
+    }
+    // 객체 수 전달
+    int getCount(){
+        return count++;
+    }
+    //메소드
+    boolean powerToggle(){
+        if(power=="off"){ //powerToggle() 호출시 power를 변경하게 조건 달기
+            power="on";
+            return true;
+        }
+        else
+            power="off";
+            return false;
+    }
+    //출력
+    public String toString(){
+        return "번호는 : "+telNum+" 전원상태는 : "+power+" 저장된 번호수는 : "+count;
+    }
+
+
+}
+
+
+
+public class CellPhoneTest {
+    public static void main(String[] args) {
+        CellPhone cps[]=new CellPhone[5]; //배열 생성
+        cps[0]=new CellPhone("01030223237"); 
+        cps[1]=new CellPhone("01098773237");
+        cps[2]=new CellPhone("01089523237");
+        cps[3]=new CellPhone("01057103715");
+        cps[4]=new CellPhone("01043034302"); //각각 전화번호 입력후 생성
+        String telnum;  //비교하기위한 전화번호 String입력 변수생성
+
+        Scanner scan=new Scanner(System.in);
+
+        System.out.println("현재 각 번호당 전원상태는 : ");
+        for(int i=0; i<cps.length ; i++){
+            System.out.println("cps["+i+"]"+"="+cps[i].power); //현재 저장된 전화번호 확인및 출력
+        }
+
+        System.out.print("현재 알고싶은 전원상태의 번호는? : ");
+        telnum= scan.next(); //알고싶은 전화번호 입력
+
+
+        for(int i=0 ; i< cps.length ;i++){
+            if(cps[i].telNum.equals(telnum)){. //조건으로 일치할경우 그 번호에 맞게 전원상태 출력
+                System.out.println("현재 "+telnum+" 의 전원상태는?");
+                System.out.println(cps[i].power);
+            }
+            else{ //찾는번호가 없을경우 그 번호는 없다라고 알려주고 반복문 종료
+                System.out.println("그번호는 저장되지 않은 번호입니다.");
+                break; //윗줄이 반복문 조건만큼 출력되는걸 막기위해 break 사용
+            }
+        }
+
+    }
+
+}

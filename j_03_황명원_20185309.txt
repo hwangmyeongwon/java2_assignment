@@ -1,0 +1,81 @@
+ㅡ문제
+
+19. AnimalTest 클래스가 다음과 같이 동작하도록 클래스들을 완성하시오. 단 Animal 클래스는 객체 생성이 불가능 합니다. reaction()은 Animal 클래스에서 인스턴스를 확인하여 출력하고, sound()는 오버라이딩하여 사용합니다. Dog는 멍멍, Cat은 야~옹 합니다.
+package test;
+public class AnimalTest {
+public static void main(String[] args) {
+Animal[] pets = {
+new Cat("Nabee"),
+new Dog(),
+new Cat(),
+new Dog(),
+new Dog("Rock")
+};
+for (Animal ani : pets) {
+System.out.print("\n" + ani + "_" + ani.reaction(ani)); ani.sound();
+}
+System.out.print("\n\nPet들 중 Dog는 " + Dog.getCountDog() + "마리\n"); }
+}
+
+
+ㅡ소스 풀이
+
+public abstract class Animal {
+    
+
+    public abstract void sound(); //이걸 쓰기로 약속하므로 abstract으로 sound()생성
+
+    public String reaction(Animal ani) {
+        if ((ani instanceof Cat) == true) { //instanceof 로 비교해서 같으면 실행
+            return "꼬리올리고";  //고양이면 꼬리올리기
+        } else if ((ani instanceof Dog) == true) { //instanceof 로 비교해서 같으면 실행
+
+            return "꼬리내리고"; //강아지면 꼬리내리기
+       }
+        else
+            return null;
+    }
+}
+public class Cat extends Animal{
+    public void sound(){ //야~옹 출력되는 메소드 생성
+        System.out.println(" 야~옹");
+    }
+    String name;
+   
+    Cat(){ //이름 없을때 "Anonymous"로 출력하기위해 생성
+        this.name="Anonymous";
+        
+    }
+    Cat(String n){ //입력한 이름으로 출력하기위해 생성
+        this.name=n;
+        
+    }
+
+ 
+    public String toString(){ //오버라이드 해서 출력할떄 이 메소드 호출하게 하기
+        return this.name+"고양이";
+    }
+}
+public class Dog extends Animal {
+    public void sound(){ //멍멍 출력되는 메소드 생성
+        System.out.println(" 멍멍");
+    }
+    String name;
+    static int count=0;
+    Dog(){ //이름 없을때 "Anonymous"로 출력하기위해 생성
+        this.name="Anonymous";
+        count++; //생성되면 count 증가
+    }
+    Dog(String n){ //입력한 이름으로 출력하기위해 생성
+        this.name=n;
+        count++; //생성되면 count 증가
+    }
+   static int getCountDog(){ //count 증가되고나서 결과출력하는메소드 static으로 생성
+       return count;
+   }
+   public String toString(){ //오버라이드 해서 출력할떄 이 메소드 호출하게 하기
+        return this.name+"강아지";
+   }
+
+}
+

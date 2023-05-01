@@ -1,0 +1,38 @@
+ㅡ문제
+6. 다음과 같은 조건을 만족하는 프로그램을 작성하세요.
+- interface ISound의 추상 메소드 sound()는 객체의 소리를 리턴 합니다.
+- ISound를 구현한 Cat 클래스에서는 "야옹"을 리턴 합니다.
+- ISound를 구현한 Dog 클래스에서는 "멍멍"을 리턴 합니다.
+- SoundExample 클래스의 main() 메소드에서는 Cat 객체를 매개변수로 printSound()를 호출할 때와 Dog 객체를 매개변수로 printSound()를 호출할 때 각각 “야옹”과 “멍멍”이 출력되어야 합니다.
+- SoundExample 클래스의 printSound() 메소드는 ISound 인터페이스 타입의 매개변수 전달 받아 sound() 호출 결과를 출력합니다.
+
+
+ㅡ소스코드
+interface ISound{
+    public String sound();
+}
+class Cat implements ISound{
+    public String sound(){
+        return "야옹";
+    }
+}
+class Dog implements ISound{
+    public String sound(){
+        return "멍멍";
+    }
+}
+
+public class SoundExample extends Dog {
+    private static void printSound(ISound a){
+        System.out.println(a.sound());
+    }
+
+    public static void main(String[] args) {
+        ISound cat= new Cat();
+        printSound(cat);
+        ISound dog=new Dog();
+        printSound(dog);
+    }
+
+
+}

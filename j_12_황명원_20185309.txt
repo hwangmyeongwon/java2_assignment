@@ -1,0 +1,71 @@
+ㅡ문제ㅡ
+(1) Thread를 상속받은 Job 클래스를 작성하세요.
+
+: 필드(private String name, int num)
+
+: 생성자(이름을 전달하여 저장)
+
+: 스레드 메소드 (0.5초간 sleep() 후 getNum()메소드 호출 후 린턴 받은 결과 출력, getNum()에서 리턴 받은 값이 10이면 반복 탈출)
+
+: getNum() (한 순간에 하나의 스레드만 접근할 수 있는 메소드, num값을 1증가 시킨 후 증가된 num값을 리턴)
+
+
+ㅡ소스코드ㅡ
+
+class Job extends Thread{
+    private String name;
+    static int num=0;
+    public Job(String name){
+        this.name=name;
+    }
+    public void run(){
+        int n=getNum();
+        while(n<=9){
+            try{
+                Thread.sleep(500);
+                System.out.println(this.name + " : " + n);
+                n=getNum();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    static synchronized int getNum(){
+        num++;
+        return num;
+    }
+}
+
+ㅡ문제ㅡ
+(2) Test 클래스를 작성하세요.
+
+: 메인 메소드에서 각각의 이름을 부여한 두 개의 스레드를 생성한 후 스레드 메소드를 호출하세요.
+
+ㅡ소스코드ㅡ
+
+public class test6 {
+    public static void main(String[] args) {
+        System.out.println("이름:황명원 학번:20185309");
+        Thread tA=new Thread(new Job("ThreadA"));
+        Thread tB=new Thread(new Job("ThreadB"));
+
+
+        tA.start();
+        tB.start();
+
+    }
+}
+
+ㅡ실행결과ㅡ
+이름:황명원 학번:20185309
+ThreadA : 1
+ThreadB : 2
+ThreadB : 4
+ThreadA : 3
+ThreadB : 5
+ThreadA : 6
+ThreadB : 7
+ThreadA : 8
+ThreadB : 9
+   
